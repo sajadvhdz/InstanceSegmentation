@@ -2,4 +2,4 @@ from Detector import *
 
 detector = Detector()
 
-detector.onImage("1.png")
+detector.onImage("2.png")
