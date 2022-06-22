@@ -29,4 +29,4 @@ class Detector:
 
             cv2.imshow("Result", output.get_image)
             cv2.waitKey(0)
-print("Hello")
+
