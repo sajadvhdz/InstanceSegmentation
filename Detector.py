@@ -5,6 +5,7 @@ from detectron2.utils.visualizer import ColorMode, Visualizer
 from detectron2 import model_zoo
 
 import cv2
+from matplotlib import pyplot as plt
 import numpy as np
 
 
@@ -25,10 +26,10 @@ class Detector:
             image = cv2.imread(imagePath)
             predictions = self.predictor(image)
 
-            viz = Visualizer(image[:, :, ::-1], metadata=MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]),
-                             instance_mode=ColorMode.IMAGE_BW)
-            output = viz.draw_instances_predictions(predictions["instances"].to("cpu"))
+            viz = Visualizer(image[:,:,::-1], metadata = MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]),
+                             instance_mode=ColorMode.IMAGE)
+            output = viz.draw_instance_predictions(predictions["instances"].to("cpu"))
 
-            cv2.imshow("Result", output.get_image()[:,:,::-1])
-            cv2.waitKey(0)
+            plt.imshow("Results", output.get_image())
+            plt.show()
 
