@@ -7,6 +7,7 @@ from detectron2 import model_zoo
 import cv2
 import numpy as np
 
+
 class Detector:
     def __init__(self):
         self.cfg = get_cfg()
@@ -24,9 +25,9 @@ class Detector:
             image = cv2.image(imagePath)
             predictions = self.predictor(image)
 
-            viz = Visualizer(image[:,:,::-1], metadata = MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]), instance_mode = ColorMode.IMAGE_BW)
+            viz = Visualizer(image[:, :, ::-1], metadata=MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]),
+                             instance_mode=ColorMode.IMAGE_BW)
             output = viz.draw_instances_predictions(predictions["instances"].to("cpu"))
 
             cv2.imshow("Result", output.get_image)
             cv2.waitKey(0)
-
