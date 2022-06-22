@@ -22,7 +22,7 @@ class Detector:
         self.predictor = DefaultPredictor(self.cfg)
 
     def onImage(self, imagePath):
-            image = cv2.image(imagePath)
+            image = cv2.imread(imagePath)
             predictions = self.predictor(image)
 
             viz = Visualizer(image[:, :, ::-1], metadata=MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]),
