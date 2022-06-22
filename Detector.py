@@ -14,14 +14,14 @@ class Detector:
 
         # Load model config and pretrained model
         self.cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml"))
-        self.cfg.MODEL.WEIGHTS = model_zoo.get_chechpoint_url("COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml")
+        self.cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml")
 
-        self.cfg.ROI_HEADS.SCORE_THRESH_TEST = 0.7
+        self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
         self.cfg.MODEL.DEVICE = "cuda"
 
         self.predictor = DefaultPredictor(self.cfg)
 
-        def onImage(self, imagePath):
+    def onImage(self, imagePath):
             image = cv2.image(imagePath)
             predictions = self.predictor(image)
 
@@ -29,5 +29,6 @@ class Detector:
                              instance_mode=ColorMode.IMAGE_BW)
             output = viz.draw_instances_predictions(predictions["instances"].to("cpu"))
 
-            cv2.imshow("Result", output.get_image)
+            cv2.imshow("Result", output.get_image()[:,:,::-1])
             cv2.waitKey(0)
+
