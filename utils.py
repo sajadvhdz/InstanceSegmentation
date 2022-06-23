@@ -8,7 +8,7 @@ import random
 import cv2
 from matplotlib import pyplot as plt
 
-def plot_samples(dataset_name, n=1)
+def plot_samples(dataset_name, n=1):
     dataset_custom = DatasetCatalog.get(dataset_name)
     dataset_custom_metadata = MetadataCatalog.get(dataset_name)
 
