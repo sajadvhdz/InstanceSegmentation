@@ -1,14 +1,11 @@
 from detectron2.utils.logger import setup_logger
-
 setup_logger()
-
 from detectron2.data.datasets import register_coco_instances
 from detectron2.engine import DefaultTrainer
-
+from utils import *
 import os
 import pickle
 
-from utils import *
 
 # %%
 config_file_path = "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
@@ -21,19 +18,17 @@ device = "cuda"
 
 train_dataset_name = "dset_train"
 train_images_path = "train"
-train_json_annot_path = "result1.json"
+train_json_annot_path = "train_dataset.json"
 
 test_dataset_name = "dset_test"
 test_images_path = "test"
-test_json_annot_path = "result2.json"
+test_json_annot_path = "test_dataset.json"
 
 cfg_save_path = "IS_cfg.pickle"
 
 # %%
 register_coco_instances(name = train_dataset_name, metadata= {},
                         json_file= train_json_annot_path, image_root= train_images_path)
-register_coco_instances(name = test_dataset_name, metadata= {},
-                        json_file= test_json_annot_path, image_root= test_images_path)
 
 # %%
 def main():
