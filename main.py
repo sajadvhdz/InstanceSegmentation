@@ -12,15 +12,16 @@ Train:
 '''
 Divide the dataset to two json files (Train vs Test) as follows:
 
-# python3 split.py --having-annotations --multi-class -s 0.7 total_dataset.json train.json test.json
+# python3 split.py --having-annotations --multi-class -s 0.8 total_dataset.json train.json test.json
+# python3 split.py --having-annotations -s 0.8 total_dataset.json train.json test.json
 '''
+
 
 #%%
 
 import time
 import glob, os
-os.chdir("test/")
+os.chdir("stierman/")
 for file in glob.glob("*.jpg"):
     print(file)
-    detector.onImage(file)
-    time.sleep(3)
+    image_path = file

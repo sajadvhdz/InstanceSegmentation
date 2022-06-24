@@ -43,3 +43,15 @@ def get_train_cfg(config_file_path, checkpoint_url, train_dataset_name, test_dat
     cfg.OUTPUT_DIR = output_dir
 
     return cfg
+
+def onImage(imagePath):
+    im = cv2.imread(imagePath)
+    outputs = predictor(im)
+
+    viz = Visualizer(im[:, :, ::-1], metadata={}, scale= 0.5,
+                     instance_mode=ColorMode.SEGMENTATION)
+    v = viz.draw_instance_predictions(outputs["instances"].to("cpu"))
+
+    plt.figure(figsize=(15,10))
+    plt.imshow(v.get_image()[:, :, ::-1])
+    plt.show()
