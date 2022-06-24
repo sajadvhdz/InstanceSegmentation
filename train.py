@@ -42,4 +42,11 @@ def main():
     with open(cfg_save_path, 'wb') as f:
         pickle.dump(cfg,f, protocol=pickle.HIGHEST_PROTOCOL)
 
+    os.makedirs(cfg.OUTPUT_DIR, exist_ok = True)
+    trainer = DefaultTrainer(cfg)
+    trainer.resume_or_load(resume= False)
+    trainer.train()
+
+if __name__ == '__main__':
+    main()
 

@@ -32,8 +32,10 @@ class Detector:
         plt.imshow(output.get_image()[:, :, ::-1])
         plt.show()
 
-    def onVideo(self, videoPath):
-        cap = cv2.VideoCapture(videoPath)
+    def onVideo(self):
+        cap = cv2.VideoCapture(0)
+
+        # cap = cv2.VideoCapture(videoPath)
 
         if (cap.isOpened()==False):
             print("Error opening the file...")
