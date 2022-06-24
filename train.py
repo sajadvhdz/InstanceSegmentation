@@ -18,11 +18,11 @@ device = "cuda"
 
 train_dataset_name = "dset_train"
 train_images_path = "images"
-train_json_annot_path = "train_dataset.json"
+train_json_annot_path = "train.json"
 
 test_dataset_name = "dset_test"
 test_images_path = "images"
-test_json_annot_path = "test_dataset.json"
+test_json_annot_path = "test.json"
 
 cfg_save_path = "IS_cfg.pickle"
 

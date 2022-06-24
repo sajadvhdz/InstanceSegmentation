@@ -38,10 +38,6 @@ parser.add_argument('--multi-class', dest='multi_class', action='store_true',
 
 args = parser.parse_args()
 
-import json
-with open('train_dataset.json', 'rt', encoding='UTF-8') as annotations:
-    coco = json.load(annotations)
-
 def main(args):
     with open(args.annotations, 'rt', encoding='UTF-8') as annotations:
         coco = json.load(annotations)
