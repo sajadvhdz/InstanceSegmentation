@@ -17,11 +17,11 @@ num_classes = 2
 device = "cuda"
 
 train_dataset_name = "dset_train"
-train_images_path = "train"
+train_images_path = "images"
 train_json_annot_path = "train_dataset.json"
 
 test_dataset_name = "dset_test"
-test_images_path = "test"
+test_images_path = "images"
 test_json_annot_path = "test_dataset.json"
 
 cfg_save_path = "IS_cfg.pickle"
@@ -29,6 +29,13 @@ cfg_save_path = "IS_cfg.pickle"
 # %%
 register_coco_instances(name = train_dataset_name, metadata= {},
                         json_file= train_json_annot_path, image_root= train_images_path)
+
+register_coco_instances(name = test_dataset_name, metadata= {},
+                        json_file= test_json_annot_path, image_root= test_images_path)
+
+# %%
+# plot_samples(train_dataset_name, n=5)
+# plot_samples(test_dataset_name, n=5)
 
 # %%
 def main():

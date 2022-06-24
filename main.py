@@ -6,16 +6,20 @@ detector = Detector()
 '''
 Merge two json files as follows:
 Train:
-# python3 merge_train.py train1.json train2.json train_dataset.json
-Test:
-# python3 merge_test.py test1.json test2.json test_dataset.json
+# python3 merge.py dataset1.json dataset2.json total_dataset.json
+'''
+
+'''
+Divide the dataset to two json files (Train vs Test) as follows:
+
+# python3 split.py --having-annotations --multi-class -s 0.7 total_dataset.json train.json test.json
 '''
 
 #%%
 
 import time
 import glob, os
-os.chdir("new_images/")
+os.chdir("test/")
 for file in glob.glob("*.jpg"):
     print(file)
     detector.onImage(file)
