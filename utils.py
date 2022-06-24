@@ -4,19 +4,11 @@ from detectron2.config import get_cfg
 from detectron2 import model_zoo
 from detectron2.utils.visualizer import ColorMode
 
-import keyboard
 import random
 import cv2
 from matplotlib import pyplot as plt
 
 #%%
-def pause():
-    while True:
-        if keyboard.read_key() == 'space':
-            # If you put 'space' key
-            # the program will resume.
-            break
-
 def plot_samples(dataset_name, n=1):
     dataset_custom = DatasetCatalog.get(dataset_name)
     dataset_custom_metadata = MetadataCatalog.get(dataset_name)

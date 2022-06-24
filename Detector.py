@@ -6,7 +6,7 @@ from detectron2 import model_zoo
 
 import cv2
 from matplotlib import pyplot as plt
-import numpy as np
+import keyboard
 
 
 class Detector:
@@ -54,3 +54,10 @@ class Detector:
             plt.show()
             plt.waitforbuttonpress(.001)
             (success, image) = cap.read()
+
+    def pause():
+        while True:
+            if keyboard.read_key() == 'space':
+                # If you put 'space' key
+                # the program will resume.
+                break
