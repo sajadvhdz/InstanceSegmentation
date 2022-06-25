@@ -25,3 +25,4 @@ os.chdir("stierman/")
 for file in glob.glob("*.jpg"):
     print(file)
     image_path = file
+    time.sleep(3)

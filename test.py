@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from detectron2.engine import DefaultPredictor
+from detectron2.evaluation import inference_on_dataset, COCOEvaluator
+from detectron2.data import build_detection_test_loader
 
 import os
 import pickle
@@ -16,11 +18,16 @@ cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
 
 predictor = DefaultPredictor(cfg)
 
+# evaluator = COCOEvaluator("stierman_val", output_dir="./")
+# val_loader = build_detection_test_loader(cfg, "stierman_val")
+# print(inference_on_dataset(predictor.model, val_loader, evaluator))
+
+
 import time
 import glob, os
 os.chdir("stierman/")
 for file in glob.glob("*.jpg"):
     print(file)
     image_path = file
-
-onImage(image_path, predictor)
+    onImage(image_path, predictor)
+    time.sleep(3)
