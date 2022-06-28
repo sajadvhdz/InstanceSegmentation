@@ -21,7 +21,7 @@ Divide the dataset to two json files (Train vs Test) as follows:
 
 import time
 import glob, os
-os.chdir("stierman/")
+os.chdir("sajad/")
 for file in glob.glob("*.jpg"):
     print(file)
     image_path = file

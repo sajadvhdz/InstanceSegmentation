@@ -32,9 +32,9 @@ def get_train_cfg(config_file_path, checkpoint_url, train_dataset_name, test_dat
     cfg.DATASETS.TRAIN = (train_dataset_name,)
     cfg.DATASETS.TEST = (test_dataset_name,)
 
-    cfg.DATALOADER.NUM_WORKERS = 4
-    cfg.SOLVER.IMS_PER_BATCH = 5
-    cfg.SOLVER.BASE_LR = 0.00025
+    cfg.DATALOADER.NUM_WORKERS = 8
+    cfg.SOLVER.IMS_PER_BATCH = 11
+    cfg.SOLVER.BASE_LR = 0.0002
     cfg.SOLVER.MAX_ITER = 1500
     cfg.SOLVER.STEPS = []
 
@@ -48,10 +48,48 @@ def onImage(imagePath, predictor):
     im = cv2.imread(imagePath)
     outputs = predictor(im)
 
-    viz = Visualizer(im[:, :, ::-1], metadata={}, scale= 0.5,
-                     instance_mode=ColorMode.SEGMENTATION)
+    viz = Visualizer(im[:, :, ::-1], metadata={}, scale= 0.8,
+                     instance_mode=ColorMode.IMAGE_BW)
     v = viz.draw_instance_predictions(outputs["instances"].to("cpu"))
 
-    plt.figure(figsize=(15,10))
+    plt.figure(figsize=(15,15))
     plt.imshow(v.get_image()[:, :, ::-1])
+    filename = imagePath.replace('.jpg', '.png')
+    str_save = "predictions/pred_" + filename
+    plt.savefig(str_save)
     plt.show()
+
+def build_model(cfg):
+    """
+    Build the whole model architecture, defined by ``cfg.MODEL.META_ARCHITECTURE``.
+    Note that it does not load any weights from ``cfg``.
+    """
+    meta_arch = cfg.MODEL.META_ARCHITECTURE
+    model = META_ARCH_REGISTRY.get(meta_arch)(cfg)
+    model.to(torch.device(cfg.MODEL.DEVICE))
+    _log_api_usage("modeling.meta_arch." + meta_arch)
+    return model
+
+def get_sample_inputs(sample_image = None):
+
+    if sample_image is None:
+        # get a first batch from dataset
+        data_loader = build_detection_test_loader(cfg, cfg.DATASETS.TEST[0])
+        first_batch = next(iter(data_loader))
+        return first_batch
+    else:
+        # get a sample data
+        original_image = detection_utils.read_image(sample_image, format=cfg.INPUT.FORMAT)
+        # Do same preprocessing as DefaultPredictor
+        aug = T.ResizeShortestEdge(
+            [cfg.INPUT.MIN_SIZE_TEST, cfg.INPUT.MIN_SIZE_TEST], cfg.INPUT.MAX_SIZE_TEST
+        )
+        height, width = original_image.shape[:2]
+        image = aug.get_transform(original_image).apply_image(original_image)
+        image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
+
+        inputs = {"image": image, "height": height, "width": width}
+
+        # Sample ready
+        sample_inputs = [inputs]
+        return sample_inputs

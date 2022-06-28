@@ -19,13 +19,13 @@ device = "cuda"
 
 train_dataset_name = "dset_train"
 train_images_path = "./"
-train_json_annot_path = "total_dataset.json"
+train_json_annot_path = "train.json"
 
 test_dataset_name = "dset_test"
 test_images_path = "./"
 test_json_annot_path = "test.json"
 
-cfg_save_path = "IS_cfg.pickle"
+cfg_save_path = "IAUSS_cfg.pickle"
 
 # %%
 register_coco_instances(name = train_dataset_name, metadata= {},

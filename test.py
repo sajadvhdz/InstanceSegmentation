@@ -13,8 +13,8 @@ cfg_save_path = 'IS_cfg.pickle'
 with open(cfg_save_path, 'rb') as f:
     cfg = pickle.load(f)
 
-cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final_v1.pth")
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.8
 
 predictor = DefaultPredictor(cfg)
 
@@ -25,9 +25,9 @@ predictor = DefaultPredictor(cfg)
 
 import time
 import glob, os
-os.chdir("stierman/")
+os.chdir("stierman")
 for file in glob.glob("*.jpg"):
     print(file)
     image_path = file
     onImage(image_path, predictor)
-    time.sleep(3)
+    time.sleep(2)
